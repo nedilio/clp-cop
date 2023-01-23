@@ -4,6 +4,7 @@ import { getCurrency } from "./services";
 
 function App() {
   const [precioCLP, setPrecioCLP] = useState(0);
+  const [precioUSD, setPrecioUSD] = useState(0);
   const [rate, setRate] = useState(0);
 
   const roudedNumber = (number) => {
@@ -13,6 +14,7 @@ function App() {
   const handleOnChange = (e) => {
     const precioCOP = e.target.value.replace(",", ".");
     setPrecioCLP(roudedNumber(precioCOP * rate.CLP));
+    setPrecioUSD((precioCOP * rate.USD).toFixed(2));
   };
 
   useEffect(() => {
@@ -31,6 +33,7 @@ function App() {
         pattern="^[0-9]+"
         onChange={handleOnChange}
       />
+      <p>USD = {precioUSD}</p>
       <p>CLP = {precioCLP}</p>
 
       {rate && <p>1usd = {roudedNumber(1 / rate.USD)} COP</p>}

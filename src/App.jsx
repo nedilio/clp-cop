@@ -38,7 +38,19 @@ function App() {
       <p>🇺🇸 {precioUSD} USD</p>
       <p>🇨🇱 {precioCLP} CLP</p>
 
-      {rate && <p>1USD 🇺🇸 🔄 {roudedNumber(1 / rate.USD)} COP🇨🇴</p>}
+      <div>
+        <p>
+          1USD 🇺🇸 🔄{" "}
+          {rate ? `${roudedNumber(1 / rate.USD)} COP🇨🇴` : "calculando..."}{" "}
+        </p>
+        <span className="fecha">{Date()}</span>
+      </div>
+
+      <div className="footer">
+        <a href="https://github.com/nedilio" target="_blank">
+          by @nedilio
+        </a>
+      </div>
     </div>
   );
 }

@@ -23,20 +23,22 @@ function App() {
 
   return (
     <div className="App">
-      <label htmlFor="precio">Precio COP</label>
-      <input
-        type="text"
-        min="0"
-        inputMode="decimal"
-        id="precio"
-        name="precio"
-        pattern="^[0-9]+"
-        onChange={handleOnChange}
-      />
-      <p>USD = {precioUSD}</p>
-      <p>CLP = {precioCLP}</p>
+      <div className="form">
+        <label htmlFor="precio">Precio 🇨🇴</label>
+        <input
+          type="text"
+          min="0"
+          inputMode="decimal"
+          id="precio"
+          name="precio"
+          pattern="^[0-9]+"
+          onChange={handleOnChange}
+        />
+      </div>
+      <p>🇺🇸 {precioUSD} USD</p>
+      <p>🇨🇱 {precioCLP} CLP</p>
 
-      {rate && <p>1usd = {roudedNumber(1 / rate.USD)} COP</p>}
+      {rate && <p>1USD 🇺🇸 🔄 {roudedNumber(1 / rate.USD)} COP🇨🇴</p>}
     </div>
   );
 }

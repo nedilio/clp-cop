@@ -1,34 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
+import { getCurrency } from "./services";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [precioCLP, setPrecioCLP] = useState(0);
+  const [rate, setRate] = useState(0);
+
+  const roudedNumber = (number) => {
+    return Math.ceil(number);
+  };
+
+  const handleOnChange = (e) => {
+    const precioCOP = e.target.value.replace(",", ".");
+    setPrecioCLP(roudedNumber(precioCOP * rate.CLP));
+  };
+
+  useEffect(() => {
+    getCurrency("COP").then((res) => setRate(res));
+  }, []);
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <label htmlFor="precio">Precio COP</label>
+      <input
+        type="text"
+        min="0"
+        inputMode="decimal"
+        id="precio"
+        name="precio"
+        pattern="^[0-9]+"
+        onChange={handleOnChange}
+      />
+      <p>CLP = {precioCLP}</p>
+
+      {rate && <p>1usd = {roudedNumber(1 / rate.USD)} COP</p>}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
